@@ -23,6 +23,8 @@ contract DeployDiamond is Script, IDiamondCut {
 
         // set the deployer address == EOA deploying the contract
         address deployer = 0xc6d123c51c7122d0b23e8B6ff7eC10839677684d;
+        uint256 key = vm.envUint("PRIVATE_KEY");
+        vm.startBroadcast(key);
 
         diamondCutFacet = new DiamondCutFacet();
         diamond = new Diamond( deployer, address(diamondCutFacet));
@@ -31,6 +33,8 @@ contract DeployDiamond is Script, IDiamondCut {
         paymentFacet = new PaymentFacet();
         pricefeedFacet = new PricefeedFacet();
 
+
+        // forge script script/deployer.s.sol:DeployDiamond --rpc-url https://eth-goerli.g.alchemy.com/v2/guq-3B5soit-xgOtFUtEeodMEJKdlJbe --broadcast --verify 2515NWURZVN1EHDMV6U8SSSX7S8D736JMN
 
         // upgrade diamond with facets
 
@@ -68,8 +72,6 @@ contract DeployDiamond is Script, IDiamondCut {
             })
         );
 
-        uint256 key = vm.envUint("PRIVATE_KEY");
-        vm.startBroadcast(key);
         //upgrade diamond
         IDiamondCut(address(diamond)).diamondCut(cuts, address(0x0), "");
         // call a function to get facet addresses
