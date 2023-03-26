@@ -34,8 +34,6 @@ contract DeployDiamond is Script, IDiamondCut {
         pricefeedFacet = new PricefeedFacet();
 
 
-        // forge script script/deployer.s.sol:DeployDiamond --rpc-url https://eth-goerli.g.alchemy.com/v2/guq-3B5soit-xgOtFUtEeodMEJKdlJbe --broadcast --verify 2515NWURZVN1EHDMV6U8SSSX7S8D736JMN
-
         // upgrade diamond with facets
 
         FacetCut[] memory cuts = new FacetCut[](4);
